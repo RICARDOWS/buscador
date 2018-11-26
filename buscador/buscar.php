@@ -2,15 +2,19 @@
                 require ("conexion.php");
 
                 $archivo_nombre=$_POST['nombre'];
-                $archivo_carrera=$_POST['item'];
 
-                if($archivo_carrera=="todas"){
-                $archivos = mysqli_query($conn, "SELECT * FROM archivos where nombre='$archivo_nombre'");
-                /*$filas=mysql_num_rows($archivos);
-                if ($filas==0){
-                  echo "No se encontro ningun registro";
-                  echo "<td><a href=index.php> Volver</a>";
-                }else{*/
+
+
+
+                $archivos = mysqli_query($conn, "SELECT * FROM archivos where name= '$archivo_nombre'");
+                $filas=$archivos->num_rows;
+
+             if ($filas < 0){
+                  //si no encuentra resultado lo redirecciona al index.php
+                  //mecos
+             header('Location: index.php');
+        }
+              if($filas > 0){
                 echo "<table border='1' align='center'>";
                 echo "<tr bgcolor='#CCCCCC'>";
                 echo "<td><b>ID</b></td>";
@@ -35,8 +39,10 @@
                           echo "<td><a href=archivo.php?ref=".$row['id']."> Abrir</a></td>";
                           //echo "<td><a href=formulario_eliminar.php?ref=".$row['Producto_ID']."> Eliminar </a></td>";
                           echo "</tr>";
-                      }}
-                      else{
+                      }
+                    }
+                    else
+                    {
                         $archivos = mysqli_query($conn, "SELECT * FROM archivos where nombre='$archivo_nombre' and carrera='$archivo_carrera'");
                         echo "<table border='1' align='center'>";
                         echo "<tr bgcolor='#CCCCCC'>";
@@ -60,6 +66,6 @@
                             echo "</tr>";
                         }
                       }
-                      //}
+
                       $conn->close();
                        ?>

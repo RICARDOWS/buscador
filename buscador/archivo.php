@@ -6,7 +6,7 @@
   <body>
     <h1>Buscador de tesis</h1>
     <?php
-    require ("config.php");
+    require ("conexion.php");
 
     $archivo_id = $_GET['ref'];
     $archivos = mysqli_query($conn, "SELECT * FROM archivos where id='$archivo_id'");
@@ -29,5 +29,5 @@
      </object>
 
   </body>
-  
+
 </html>
